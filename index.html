@@ -1,68 +1,63 @@
 <html>
-<head>
-	<link rel="stylesheet" href="css/angular.rangeSlider.css">
-	<style>
-		.masonry-brick {
-			padding: 6px;
-		}
-		
-		[range-slider] {
-			max-width: 600px;
-		}
-	</style>
-</head>
-
-<body ng-app="sliderDemo" ng-controller="Demo as demo">
-	
-	<div range-slider min="0" max="24" model-min="demo.model.min" model-max="demo.model.max"></div>
-	
-	<div masonry>
-	    <div class="masonry-brick" ng-repeat="image in demo.model.images track by image">
-	        <img ng-src="http://lorempixel.com/200/200/?{{ image }}" />
-	    </div>
-	</div>
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.js"></script>
-	<script src="scripts/angular.rangeSlider.js"></script>
-	<script src="scripts/angular-masonry.js"></script>
-	
-	<script>
-		(function() {
-			angular
-				.module('sliderDemo', ['ui-rangeSlider', 'wu.masonry'])
-				.controller('Demo', Demo);
-				
-			function Demo() {
-				var _min = 0;
-				var _max = 20;
-				var vm = this;
-				
-				vm.model = { 
-					get min() { return _min; },
-					set min(val) { 
-						_min = val;
-						createImages();
-					},
-					get max() { return _max; },
-					set max(val) { 
-						_max = val;
-						createImages();
-					},
-					images: []
-			 	};
-				 
-			 	createImages();
-				 
-				function createImages() {
-					vm.model.images = _.range(_min, _max);
-				}
+	<head>
+		<link rel="stylesheet" href="css/angular.rangeSlider.css">
+		<style>
+			.masonry-brick {
+				padding: 6px;
 			}
-		}());
-	</script>
-</body>
-</html>
+			
+			[range-slider] {
+				max-width: 600px;
+			}
+		</style>
+	</head>
+	<body ng-app="sliderDemo" ng-controller="Demo as demo">
+		<div range-slider min="0" max="24" model-min="demo.model.min" model-max="demo.model.max"></div>
+		<div masonry>
+			<div class="masonry-brick" ng-repeat="image in demo.model.images track by image">
+				<img ng-src="http://lorempixel.com/200/200/?{{ image }}" />
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.1/masonry.pkgd.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.js"></script>
+		<script src="scripts/angular.rangeSlider.js"></script>
+		<script src="scripts/angular-masonry.js"></script>
+		<script>
+			(function() {
+				angular
+					.module('sliderDemo', ['ui-rangeSlider', 'wu.masonry'])
+					.controller('Demo', Demo);
+					
+				function Demo() {
+					var _min = 0;
+					var _max = 20;
+					var vm = this;
+					
+					vm.model = { 
+						get min() { return _min; },
+						set min(val) { 
+							_min = val;
+							createImages();
+						},
+						get max() { return _max; },
+						set max(val) { 
+							_max = val;
+							createImages();
+						},
+						images: []
+				 	};
+					 
+				 	createImages();
+					 
+					function createImages() {
+						vm.model.images = _.shuffle(_.range(_min, _max));
+					}
+				}
+			}());
+		</script>
+	</body>
 
+</html>
